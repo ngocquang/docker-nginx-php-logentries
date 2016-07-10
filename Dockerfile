@@ -9,6 +9,7 @@ RUN easy_install supervisor
 # install envtpl for replace
 RUN pip install envtpl
 
+
 # Copy startup script for getting environment information such as config...
 ADD startup.sh      /var/startup.sh
 RUN chmod +x /var/startup.sh
@@ -20,6 +21,8 @@ sed -i -e "s/pm.min_spare_servers = 1/pm.min_spare_servers = 4/g" /etc/php5/fpm/
 sed -i -e "s/pm.max_spare_servers = 3/pm.max_spare_servers = 12/g" /etc/php5/fpm/pool.d/www.conf && \
 sed -i -e "s/;pm.max_requests = 500/pm.max_requests = 200/g" /etc/php5/fpm/pool.d/www.conf
 
+
+
 # syslog-ng graylog config
 #ADD graylog.conf.tpl /etc/syslog-ng/conf.d/graylog.conf.tpl
 # syslog-ng loggly config
@@ -30,5 +33,10 @@ ADD supervisord.conf /etc/supervisord.conf
 
 # create log directory for supervisord
 RUN mkdir /var/log/supervisor/
+
+ADD www /var/www
+
+# Create private folder for download config
+RUN mkdir /var/www/private
 
 CMD [ "/var/startup.sh" ]

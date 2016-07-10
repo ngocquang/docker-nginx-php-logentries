@@ -28,7 +28,6 @@ else
 	    #echo "Prepend the <?php for this file content..."
 	    #sed -i -e '1i<?php \' ${CONFIG_LOCAL_FILE}
 
-
         else
             echo "INVALID file content (not found text 'host' in config file)."
             echo "Exit."
