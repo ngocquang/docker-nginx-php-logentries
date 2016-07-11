@@ -5,6 +5,7 @@ echo "RUNNING..."
 #####################################
 ### DOWNLOAD REMOTE CONFIGURATION
 CONFIG_LOCAL_FILE="/var/www/private/config.yml"
+CONFIG_LOCAL_FILE_PHP="/var/www/private/config.php"
 
 # Download environment config if environment passed
 if [ -z "$CONFIG_URL" ];
@@ -29,6 +30,7 @@ else
             then
 	            echo "Prepend the <?php for this file content..."
 	            sed -i -e '1i<?php \' ${CONFIG_LOCAL_FILE}
+                mv ${CONFIG_LOCAL_FILE} ${CONFIG_LOCAL_FILE_PHP}
             fi
 
         else
