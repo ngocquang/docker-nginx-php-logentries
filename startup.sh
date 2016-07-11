@@ -21,15 +21,18 @@ else
         echo "downloaded config file OK. Checking file content is valid..."
 
         # Check valid file contents (in this case, contains string 'host')
-        if grep -Fq "host" ${CONFIG_LOCAL_FILE}
+        if grep -Fq "token" ${CONFIG_LOCAL_FILE}
         then
             echo "VALID."
 
-	    #echo "Prepend the <?php for this file content..."
-	    #sed -i -e '1i<?php \' ${CONFIG_LOCAL_FILE}
+            if grep -Fq "$" ${CONFIG_LOCAL_FILE}
+            then
+	            echo "Prepend the <?php for this file content..."
+	            sed -i -e '1i<?php \' ${CONFIG_LOCAL_FILE}
+            fi
 
         else
-            echo "INVALID file content (not found text 'host' in config file)."
+            echo "INVALID file content (not found text 'token' in config file)."
             echo "Exit."
             exit 1
         fi
